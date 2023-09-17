@@ -9,7 +9,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        name: user.name,
+        fullname: user.fullname,
+        absence: user.absence,
         username: user.username,
     });
 
@@ -31,20 +32,38 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="absence" value="No Absen" />
 
                     <TextInput
-                        id="name"
+                        type="number"
+                        id="absence"
                         className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.absence}
+                        onChange={(e) => setData('absence', e.target.value)}
                         required
                         isFocused
-                        autoComplete="name"
+                        autoComplete="absence"
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.absence} />
                 </div>
+
+                <div>
+                    <InputLabel htmlFor="fullname" value="Nama Lengkap" />
+
+                    <TextInput
+                        id="fullname"
+                        className="mt-1 block w-full"
+                        value={data.fullname}
+                        onChange={(e) => setData('fullname', e.target.value)}
+                        required
+                        isFocused
+                        autoComplete="fullname"
+                    />
+
+                    <InputError className="mt-2" message={errors.fullname} />
+                </div>
+
                 <div>
                     <InputLabel htmlFor="username" value="Username" />
 
@@ -57,8 +76,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         isFocused
                         autoComplete="username"
                     />
-
-                    <InputError classusername="mt-2" message={errors.username} />
+                    <InputError className="mt-2" message={errors.username} />
                 </div>
 
 
