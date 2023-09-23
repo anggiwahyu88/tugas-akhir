@@ -1,117 +1,114 @@
-import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from "@inertiajs/react";
+import { useState } from "react";
+import { Guest } from "@/Components/Guest";
+import GuestLayout from "@/Layouts/GuestLayout";
 
-export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+const register = () => {
+    const [isFocusAbsen, setIsFocusAbsen] = useState(false);
+    const [isFocusFullName, setIsFocusFullName] = useState(false);
+    const [isFocusUsername, setIsFocusUsername] = useState(false);
+    const [isFocusPassword, setIsFocusPassword] = useState(false);
+    const [isFocusPasswordConfirm, setIsFocusPasswordConfirm] = useState(false);
+
+    const { data, setData, post, processing, errors } = useForm({
         username: '',
         password: '',
-        password_confirmation: '',
+        fullname: '',
+        absence: '',
+        password_confirmation: ''
     });
-
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('register'));
     };
 
     return (
-        <GuestLayout>
-            <Head title="Register" />
-
+        <GuestLayout >
+            <Head title="Sign Up"/>
+            <h1 className="p-0 text-white text-center mb-[30px] text-3xl font-bold">
+                Register
+            </h1>
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
+                <div className="relative mb-[30px]">
+                    <Guest.Input
+                        onFocus={() => setIsFocusAbsen(!isFocusAbsen)}
+                        onBlur={() => setIsFocusAbsen(!isFocusAbsen)}
+                        type="number"
+                        name="fullname"
                         required
+                        onChange={(e) => setData("absence", e.target.value)}
                     />
-
-                    <InputError message={errors.name} className="mt-2" />
+                    <Guest.Label value={"No Absen (1-36)"} data={{ isFocus: isFocusAbsen, value: data.absence }} />
+                    <Guest.Error message={errors.absence} />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="username" value="Username" />
+                <div className="relative mb-[30px]">
+                    <Guest.Input
+                        onFocus={() => setIsFocusFullName(!isFocusFullName)}
+                        onBlur={() => setIsFocusFullName(!isFocusFullName)}
+                        type="text"
+                        name="fullname"
+                        required
+                        onChange={(e) => setData("fullname", e.target.value)}
+                    />
+                    <Guest.Label value={"Nama Lengkap"} data={{ isFocus: isFocusFullName, value: data.fullname }} />
+                    <Guest.Error message={errors.fullname} />
+                </div>
 
-                    <TextInput
-                        id="username"
+                <div className="relative mb-[30px]">
+                    <Guest.Input
+                        onFocus={() => setIsFocusUsername(!isFocusUsername)}
+                        onBlur={() => setIsFocusUsername(!isFocusUsername)}
                         type="text"
                         name="username"
-                        value={data.username}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('username', e.target.value)}
                         required
+                        onChange={(e) => setData("username", e.target.value)}
                     />
-
-                    <InputError message={errors.username} className="mt-2" />
+                    <Guest.Label value={"Nama Lengkap"} data={{ isFocus: isFocusUsername, value: data.username }} />
+                    <Guest.Error message={errors.username} />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
+                <div className="relative mb-[30px]">
+                    <Guest.Input
+                        onFocus={() => setIsFocusPassword(!isFocusPassword)}
+                        onBlur={() => setIsFocusPassword(!isFocusPassword)}
                         type="password"
                         name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
                         required
+                        onChange={(e) => setData("password", e.target.value)}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    <Guest.Label value={"Password"} data={{ isFocus: isFocusPassword, value: data.password }} />
+                    <Guest.Error message={errors.password} />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
+                <div className="relative mb-[30px]">
+                    <Guest.Input
+                        onFocus={() => setIsFocusPasswordConfirm(!isFocusPasswordConfirm)}
+                        onBlur={() => setIsFocusPasswordConfirm(!isFocusPasswordConfirm)}
                         type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        name="password"
                         required
+                        onChange={(e) => setData("password_confirmation", e.target.value)}
                     />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <Guest.Label value={"Ulangi Password"} data={{ isFocus: isFocusPasswordConfirm, value: data.password_confirmation }} />
+                    <Guest.Error message={errors.password_confirmation} />
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <Guest.Submit title={"Sign Up"} disabled={processing} />
+
+                <p className="text-white text-center mt-4">
+                    Sudah terdaftar?{" "}
                     <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        href={route("login")}
+                        className="text-[#b79726]"
                     >
-                        Already registered?
+                        Sign In
                     </Link>
-
-                    <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
+                </p>
             </form>
-        </GuestLayout>
+        </GuestLayout >
     );
-}
+};
+
+export default register;
