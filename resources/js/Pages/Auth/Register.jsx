@@ -25,7 +25,10 @@ const register = () => {
 
     return (
         <GuestLayout >
-            <Head title="Sign Up"/>
+            <Head>
+                <title>Sign Up</title>
+                <link rel="preload" href="/storage/hixbd8bp6d.webp" as="image"/>
+            </Head>
             <h1 className="p-0 text-white text-center mb-[30px] text-3xl font-bold">
                 Register
             </h1>
@@ -97,7 +100,7 @@ const register = () => {
 
                 <Guest.Submit title={"Sign Up"} disabled={processing} />
 
-                <p className="text-white text-center mt-4">
+                <p className="text-white text-center mt-4 text-lg">
                     Sudah terdaftar?{" "}
                     <Link
                         href={route("login")}

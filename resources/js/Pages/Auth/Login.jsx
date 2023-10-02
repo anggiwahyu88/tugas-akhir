@@ -56,7 +56,7 @@ const Login = () => {
 
                 <Guest.Submit title={"Sign in"} disabled={processing} />
 
-                <p className="text-white text-center mt-4">Tidak punya akun? <Link href={route('register')} className="text-[#b79726]">Sign Up</Link></p>
+                <p className="text-white text-center mt-4 text-lg">Tidak punya akun? <Link href={route('register')} className="text-[#b79726]">Sign Up</Link></p>
             </form>
         </GuestLayout>
 
