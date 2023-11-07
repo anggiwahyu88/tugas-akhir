@@ -68,7 +68,7 @@ const register = () => {
                         required
                         onChange={(e) => setData("username", e.target.value)}
                     />
-                    <Guest.Label value={"Nama Lengkap"} data={{ isFocus: isFocusUsername, value: data.username }} />
+                    <Guest.Label value={"Username"} data={{ isFocus: isFocusUsername, value: data.username }} />
                     <Guest.Error message={errors.username} />
                 </div>
 

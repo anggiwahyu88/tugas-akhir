@@ -113,3 +113,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 } 
+
+input: {
+  background-color: #eeff2d !important;
+  background-image:none !important;
+  color: #000000 !important;
+}

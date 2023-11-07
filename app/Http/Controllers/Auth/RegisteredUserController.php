@@ -43,7 +43,8 @@ class RegisteredUserController extends Controller
                 'absence.between' => 'Pilih no absen 1-36',
                 'absence.unique' => 'No absen tersebut telah digunakan',
                 'username.unique' => 'Username tersebut telah digunakan',
-                'password' => 'Password harus sama'
+                'password.confirmed' => 'Password harus sama',
+                'password'=>'Password minimal 8 characters'
             ]
         );
 

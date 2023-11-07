@@ -4,23 +4,26 @@ import { Guest } from "@/Components/Guest";
 import GuestLayout from "@/Layouts/GuestLayout";
 
 const Login = () => {
-    const [isFocusUsername, setIsFocusUsername] = useState(false)
-    const [isFocusPassword, setIsFocusPassword] = useState(false)
+    const [isFocusUsername, setIsFocusUsername] = useState(false);
+    const [isFocusPassword, setIsFocusPassword] = useState(false);
 
     const { data, setData, post, processing, errors } = useForm({
-        username: '',
-        password: '',
+        username: "",
+        password: "",
+        invalid: "",
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'));
+        post(route("login"));
     };
 
     return (
         <GuestLayout>
             <Head title="Sign in" />
-            <h1 className="p-0 text-white text-center mb-[30px] text-3xl font-bold">Login</h1>
+            <h1 className="p-0 text-white text-center mb-[30px] text-3xl font-bold">
+                Login
+            </h1>
             <form onSubmit={submit}>
                 <div className="relative mb-[30px]">
                     <Guest.Input
@@ -29,11 +32,14 @@ const Login = () => {
                         type="text"
                         name="username"
                         required
-                        onChange={(e) => setData('username', e.target.value)}
+                        onChange={(e) => setData("username", e.target.value)}
                     />
                     <Guest.Label
                         value={"Username"}
-                        data={{ isFocus: isFocusUsername, value: data.username }}
+                        data={{
+                            isFocus: isFocusUsername,
+                            value: data.username,
+                        }}
                     />
                     <Guest.Error message={errors.username} />
                 </div>
@@ -45,22 +51,33 @@ const Login = () => {
                         type="password"
                         name="password"
                         required
-                        onChange={(e) => setData('password', e.target.value)}
+                        onChange={(e) => setData("password", e.target.value)}
                     />
                     <Guest.Label
                         value={"Password"}
-                        data={{ isFocus: isFocusPassword, value: data.password }}
+                        data={{
+                            isFocus: isFocusPassword,
+                            value: data.password,
+                        }}
                     />
                     <Guest.Error message={errors.username} />
                 </div>
 
+                <Guest.Error
+                    message={errors.invalid}
+                    className={"text-center mt-2"}
+                />
                 <Guest.Submit title={"Sign in"} disabled={processing} />
 
-                <p className="text-white text-center mt-4 text-lg">Tidak punya akun? <Link href={route('register')} className="text-[#b79726]">Sign Up</Link></p>
+                <p className="text-white text-center mt-4 text-lg">
+                    Tidak punya akun?{" "}
+                    <Link href={route("register")} className="text-[#b79726]">
+                        Sign Up
+                    </Link>
+                </p>
             </form>
         </GuestLayout>
-
     );
-}
+};
 
 export default Login;
